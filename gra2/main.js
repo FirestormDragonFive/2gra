@@ -13,15 +13,37 @@ var mainState = {
 		game.world.enableBody = true;
 		
 		this.player = game.add.sprite(70, 100, 'player');
-		//this.player.body.gravity.y = 600;
+		this.player.body.gravity.y = 0;
 		this.cursor = game.input.keyboard.createCursorKeys();
+        this.walls = game.add.group();
 		
-		this.walls = game.add.group();
-		for(var i; i<5 .lenght; i++){
-			var wall = game.add.sprite(30+20*i, 50, 'wall');
-			this.walls.add(wall);
-			wall.body.immovable = true;
+		var level = [
+		'xxxxxxxxxxxxxxxxxxxxxx',
+		'x                    x',
+		'x                    x',
+		'x                    x',
+		'x                    x',
+		'x                    x',
+		'xxxxxxxxxxxxxxxxxxxxxx',
+		'xxxxxxxxxxxxxxxxxxxxxx',
+		'xxxxxxxxxxxxxxxxxxxxxx',
+		'x                    x',
+		'x                    x',
+		'xxxxxxxxxxxxxxxxxxxxxx',
+		
+		];
+		
+	
+		for(var i=0; i<level.lenght; i++){
+			for(j=0; j<level[i].lenght; j++) {
+				if (level[i][j] == 'x') {
+					var wall = game.add.sprite(30+20*j, 30+20*i, 'wall');
+					this.walls.add(wall);
+					wall.body.immovable = true;                                                                                                                                                             
+				}
+			}
 		}
+		
 	},
 	
 	update: function() {
@@ -43,6 +65,6 @@ var mainState = {
 	
 };
 
-var game = new Phaser.Game(500, 200);
+var game = new Phaser.Game(1500, 800);
 game.state.add('main', mainState);
 game.state.start('main');
